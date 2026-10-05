@@ -3,172 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Kay!</title>
-    
-    <!-- Font dari Google -->
+    <title>Happy Birthday Kay! - from Ryan</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <!-- Animasi Konfeti -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
-    <!-- Memanggil Berkas CSS Terpisah -->
+    <!-- File CSS Terpisah -->
     <link rel="stylesheet" href="style.css">
+    <!-- Pustaka Konfeti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
-    <!-- Musik Latar -->
-    <audio id="bgSong" loop>
+    <audio id="mySong" loop>
         <source src="Jamrud - Selamat Ulang Tahun.mp3" type="audio/mpeg">
-        Browser Anda tidak mendukung audio.
+        Browsermu tidak mendukung pemutaran audio.
     </audio>
 
-    <!-- Tombol Musik -->
-    <button class="music-toggle" id="musicBtn" onclick="toggleAudio()">🔊</button>
+    <button class="music-control" id="musicBtn" onclick="toggleMusic()">🔊</button>
 
-    <!-- Halaman Cover Pembuka -->
-    <div class="cover-overlay" id="cover">
-        <div class="cover-card">
-            <p class="sub-title">A Special Celebration</p>
-            <h1 class="main-title">Happy Birthday, Kay!</h1>
-            
-            <div class="avatar-wrapper">
-                <img class="avatar-img" src="KAR.jpeg" alt="Foto Kay">
-            </div>
-            
-            <p style="font-size: 0.85rem; opacity: 0.8;">Ada sebuah pesan khusus dari:</p>
-            <div class="sender-tag">Ryan</div>
-            
-            <button class="btn-action" onclick="bukaPesan()">Buka Ucapan</button>
-        </div>
+    <div class="cover" id="cover">
+        <h3>A Special Day For You</h3>
+        <h1 class="animated-text">Happy Birthday, Kay!</h1>
+        
+        <img class="cover-photo animated-image" src="KAR.jpeg" alt="Foto Onty">
+        
+        <p>Ada pesan manis yang dikirimkan oleh:</p>
+        <div class="sender-name">Ryan</div>
+        <br>
+        <button class="btn-open" onclick="bukaPesan()">Buka Pesan</button>
     </div>
 
-    <!-- Isi Halaman Utama -->
     <div id="main-content">
         
-        <!-- Bagian Ucapan -->
-        <section class="section-container">
-            <h2 class="section-heading">Pesan Khusus</h2>
-            <div class="card-message">
-                <p>Happy Birthday Kay! Di hari spesial lu ini, gw cuma mau bilang makasih banyak udah jadi orang hebat, jadi temen, jadi kakak, dan panutan buat gw. Makasih juga udah selalu ngasih tawa walaupun kadang kondisi lu sendiri lagi ga baik-baik aja wkwk.</p>
-                <p>Semoga semua langkah lu ke depan selalu dipermudah, jalan menuju mimpi-mimpi lu makin dekat, dan hari-hari lu selalu dipenuhi hal bahagia. Btw sorry ga bisa kasih apa-apa, cuma bisa kirim doa dan ucapan sederhana ini hehe.</p>
-                <div class="signature">With Love, Ryan</div>
+        <section id="ucapan">
+            <h2 class="animated-text">Pesan dari Ryan</h2>
+            <div class="ucapan-box">
+                <p>Happy Birthday Kay! Di hari spesial lu ini, Gw cuma mau bilang thanks sudah menjadi orang hebat, menjadi temen, jadi kakak, jadi panutan buat gw dan juga yang kadang ngasih tawa walaupun lu juga lagi ga baik baik aja wkwk. Semoga langkah lu ke depan selalu dimudahkan, mimpi lu didekatkan, dan hari lu selalu dipenuhi kebahagiaan. Btw sorry ga bisa ngasih apa apa, cuma bisa ngasih doa dan ucapan yang simple ini hehe.</p>
+                <div class="salam-hangat">With Love, Ryan</div>
             </div>
         </section>
 
-        <!-- Bagian Hitung Mundur -->
-        <section class="section-container">
-            <h2 class="section-heading" style="font-size: 2.5rem;">Hari Spesial</h2>
-            <div class="timer-wrapper">
-                <div class="timer-box">
-                    <span class="timer-number" id="days">00</span>
-                    <span class="timer-label">Hari</span>
+        <hr style="border: 0; border-top: 1px dashed #e5a93b; max-width: 40%; margin: 0 auto;">
+
+        <section id="countdown-section">
+            <h2 class="animated-text" style="font-size: 2.5rem;">Spesial di Hari Ini</h2>
+            <div class="countdown">
+                <div class="time-box">
+                    <span id="days">00</span>
+                    <label>Hari</label>
                 </div>
-                <div class="timer-box">
-                    <span class="timer-number" id="hours">00</span>
-                    <span class="timer-label">Jam</span>
+                <div class="time-box">
+                    <span id="hours">00</span>
+                    <label>Jam</label>
                 </div>
-                <div class="timer-box">
-                    <span class="timer-number" id="minutes">00</span>
-                    <span class="timer-label">Menit</span>
+                <div class="time-box">
+                    <span id="minutes">00</span>
+                    <label>Menit</label>
                 </div>
-                <div class="timer-box">
-                    <span class="timer-number" id="seconds">00</span>
-                    <span class="timer-label">Detik</span>
+                <div class="time-box">
+                    <span id="seconds">00</span>
+                    <label>Detik</label>
                 </div>
             </div>
         </section>
 
-        <!-- Bagian Galeri Foto -->
-        <section class="section-container">
-            <h2 class="section-heading">Foto lu nih</h2>
-            <p style="font-size: 0.85rem; color: #888; margin-bottom: 20px;">Beberapa foto lu gw colong dari Tiktok wkwk</p>
+        <hr style="border: 0; border-top: 1px dashed #e5a93b; max-width: 40%; margin: 0 auto;">
+
+        <section id="memories">
+            <h2 class="animated-text">Foto lu nih</h2>
+            <p style="margin-bottom: 20px; font-size: 0.9rem; color: #777;">Beberapa foto lu gw colong dari Tiktok wkwk</p>
             <div class="gallery-grid">
-                <div class="gallery-card"><img src="KAR 1.jpeg" alt="Foto 1"></div>
-                <div class="gallery-card"><img src="KAR 2.jpeg" alt="Foto 2"></div>
-                <div class="gallery-card"><img src="KAR 3.jpeg" alt="Foto 3"></div>
+                <img class="animated-image" src="KAR 1.jpeg" alt="Momen 1">
+                <img class="animated-image" src="KAR 2.jpeg" alt="Momen 2">
+                <img class="animated-image" src="KAR 3.jpeg" alt="Momen 3">
             </div>
         </section>
 
         <footer>
             <p>Dibuat oleh Ryan</p>
-            <p style="margin-top: 6px; opacity: 0.6;">17 Oktober 2026 Special Birthday Karina</p>
+            <p style="margin-top: 8px; opacity: 0.5;">17 Oktober 2026 Special Birthday Karina.</p>
         </footer>
 
     </div>
 
-    <!-- Skrip Interaksi & Hitung Mundur -->
     <script>
-        const audio = document.getElementById('bgSong');
-        const musicBtn = document.getElementById('musicBtn');
+        const lagu = document.getElementById('mySong');
+        const tombolMusik = document.getElementById('musicBtn');
 
-        function luncurkanKonfeti() {
-            const end = Date.now() + 3000;
+        // Efek Semburan Konfeti Kiri & Kanan
+        function semburanKonfeti() {
+            var durasi = 3 * 1000;
+            var akhir = Date.now() + durasi;
+
             (function frame() {
+                // Semburan dari Kiri
                 confetti({
-                    particleCount: 3,
+                    particleCount: 4,
                     angle: 60,
                     spread: 55,
                     origin: { x: 0, y: 0.8 }
                 });
+                // Semburan dari Kanan
                 confetti({
-                    particleCount: 3,
+                    particleCount: 4,
                     angle: 120,
                     spread: 55,
                     origin: { x: 1, y: 0.8 }
                 });
-                if (Date.now() < end) {
+
+                if (Date.now() < akhir) {
                     requestAnimationFrame(frame);
                 }
             }());
         }
 
+        // Efek Buka Surat, Putar Musik & Tembakkan Konfeti
         function bukaPesan() {
             const cover = document.getElementById('cover');
             
-            audio.play().catch(() => {
-                console.log("Autoplay ditahan browser.");
+            lagu.play().catch(error => {
+                console.log("Autoplay dicegah browser.");
             });
 
             cover.style.transform = 'translateY(-100vh)';
-            
             setTimeout(() => {
                 cover.style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
-                musicBtn.style.display = 'flex';
-                luncurkanKonfeti();
+                const mainContent = document.getElementById('main-content');
+                mainContent.style.display = 'block';
+                
+                tombolMusik.style.display = 'flex';
+                
+                // Memicu efek ledakan konfeti langsung setelah halaman terbuka
+                semburanKonfeti();
+                
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }, 800);
         }
 
-        function toggleAudio() {
-            if (audio.paused) {
-                audio.play();
-                musicBtn.innerText = "🔊";
+        // Fungsi Jeda/Putar Musik
+        function toggleMusic() {
+            if (lagu.paused) {
+                lagu.play();
+                tombolMusik.innerText = "🔊";
             } else {
-                audio.pause();
-                musicBtn.innerText = "🔇";
+                lagu.pause();
+                tombolMusik.innerText = "🔇";
             }
         }
 
-        // Tanggal Hitung Mundur Target: 17 Oktober 2026
-        const targetDate = new Date("Oct 17, 2026 00:00:00").getTime();
+        // Hitung Mundur Menuju Tanggal 17 Oktober 2026
+        const tanggalAcara = new Date("Oct 17, 2026 00:00:00").getTime();
 
-        const countdownTimer = setInterval(function() {
-            const now = new Date().getTime();
-            const diff = targetDate - now;
+        const timer = setInterval(function() {
+            const sekarang = new Date().getTime();
+            const selisih = tanggalAcara - sekarang;
 
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            const hari = Math.floor(selisih / (1000 * 60 * 60 * 24));
+            const jam = Math.floor((selisih % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const menit = Math.floor((selisih % (1000 * 60 * 60)) / (1000 * 60));
+            const detik = Math.floor((selisih % (1000 * 60)) / 1000);
 
-            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+            document.getElementById("days").innerText = hari < 10 ? "0" + hari : hari;
+            document.getElementById("hours").innerText = jam < 10 ? "0" + jam : jam;
+            document.getElementById("minutes").innerText = menit < 10 ? "0" + menit : menit;
+            document.getElementById("seconds").innerText = detik < 10 ? "0" + detik : detik;
 
-            if (diff < 0) {
-                clearInterval(countdownTimer);
+            if (selisih < 0) {
+                clearInterval(timer);
                 document.getElementById("days").innerText = "00";
                 document.getElementById("hours").innerText = "00";
                 document.getElementById("minutes").innerText = "00";
