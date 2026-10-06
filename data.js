@@ -1,0 +1,38 @@
+const BIRTHDAY_DATA = {
+    // Maklumat Asas & Pintu Rahsia
+    targetName: "kay",
+    secretPassword: "seblak",
+    whatsappNumber: "6282384613484", // Ganti dengan nomor WhatsApp Anda
+
+    // PENGATURAN MUSIK (Bisa diganti link MP3 lain atau nama file lokal "lagu.mp3")
+    musicUrl: "ultah.mp3",
+
+    // Tarikh Ulang Tahun (17 Oktober 2026)
+    targetDate: "2026-10-17T00:00:00", 
+
+    // Foto Profil Bulat
+    profileImage: "KAR.jpeg",
+
+    // Surat & Pesan Rahsia Modal
+    secretLetter: {
+        title: "Untuk Kay 💌",
+        body: `Happy Birthday Kay!\n\nDi hari spesial lu ini, Gw cuma mau bilang thanks sudah menjadi orang hebat, menjadi temen, jadi kakak, jadi panutan buat gw dan juga yang kadang ngasih tawa walaupun lu juga lagi ga baik baik aja wkwk. Semoga langkah lu ke depan selalu dimudahkan, mimpi lu didekatkan, dan hari-hari lu selalu dipenuhi kebahagiaan. Btw sorry ga bisa ngasih apa apa, cuma bisa ngasih doa dan ucapan yang simple ini hehe.`,
+        sender: "Dari Moderator Terbaikmu ❤️"
+    },
+
+    // Galeri Foto Kenangan
+    gallery: [
+        {
+            image: "KAR 1.jpeg",
+            caption: "Mode Ganas 🌟"
+        },
+        {
+            image: "KAR 2.jpeg",
+            caption: "Mode Cantik 🎈"
+        },
+        {
+            image: "KAR 3.jpeg",
+            caption: "Mode Ceria ✨"
+        }
+    ]
+};

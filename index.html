@@ -3,177 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Kay! - from Ryan</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- File CSS Terpisah -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Pustaka Konfeti -->
+    <title>Selamat Ulang Tahun, Kay! ✨</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+        .font-serif-custom { font-family: 'Playfair Display', serif; }
+        .font-handwriting { font-family: 'Dancing Script', cursive; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(244, 114, 182, 0.15);
+        }
+
+        .glass-input {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(244, 114, 182, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .balloon {
+            position: absolute;
+            width: 40px; height: 50px;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            animation: floatUp 15s infinite ease-in-out;
+            opacity: 0.6; z-index: 0;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.7; }
+            100% { transform: translateY(-20vh) rotate(20deg); opacity: 0; }
+        }
+
+        .glow-text {
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #f43f5e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cake-container { position: relative; width: 180px; height: 160px; margin: 0 auto; }
+        .cake-base { position: absolute; bottom: 10px; left: 15px; width: 150px; height: 60px; background: linear-gradient(to right, #f472b6, #fb7185); border-radius: 12px; }
+        .cake-top { position: absolute; bottom: 70px; left: 35px; width: 110px; height: 45px; background: linear-gradient(to right, #fbcfe8, #f472b6); border-radius: 10px; }
+        .candle { position: absolute; bottom: 115px; left: 83px; width: 14px; height: 30px; background: repeating-linear-gradient(45deg, #fbbf24, #fbbf24 5px, #f59e0b 5px, #f59e0b 10px); border-radius: 3px; cursor: pointer; }
+        .flame { position: absolute; top: -16px; left: 2px; width: 10px; height: 16px; background: #facc15; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 10px #facc15; }
+        .flame.extinguished { display: none; }
+        .smoke { display: none; position: absolute; top: -20px; left: 3px; width: 8px; height: 15px; background: rgba(200, 200, 200, 0.6); border-radius: 50%; filter: blur(2px); }
+        .modal-fade { transition: opacity 0.3s ease; }
+    </style>
 </head>
-<body>
+<body class="min-h-screen text-slate-800 relative bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50">
 
-    <audio id="mySong" loop>
-        <source src="Jamrud - Selamat Ulang Tahun.mp3" type="audio/mpeg">
-        Browsermu tidak mendukung pemutaran audio.
-    </audio>
+    <div id="balloon-container" class="fixed inset-0 pointer-events-none overflow-hidden z-0"></div>
 
-    <button class="music-control" id="musicBtn" onclick="toggleMusic()">🔊</button>
+    <!-- LOGIN PAGE -->
+    <main id="login-section" class="relative z-10 min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md">
+            <div class="glass-card rounded-3xl p-8 text-center relative overflow-hidden">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-tr from-pink-400 to-rose-400 rounded-2xl shadow-lg mb-6 text-white text-2xl animate-bounce">
+                    <i class="fa-solid fa-gift"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-slate-800 mb-2">Pintu Rahasia ✨</h1>
+                <p class="text-slate-500 text-sm mb-6">Masukkan nama & kode rahasia untuk membuka kejutan!</p>
 
-    <div class="cover" id="cover">
-        <h3>A Special Day For You</h3>
-        <h1 class="animated-text">Happy Birthday, Kay!</h1>
-        
-        <img class="cover-photo animated-image" src="KAR.jpeg" alt="Foto Onty">
-        
-        <p>Ada pesan manis yang dikirimkan oleh:</p>
-        <div class="sender-name">Ryan</div>
-        <br>
-        <button class="btn-open" onclick="bukaPesan()">Buka Pesan</button>
-    </div>
+                <form id="login-form" class="space-y-4 text-left" onsubmit="handleLogin(event)">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Nama Kamu</label>
+                        <input type="text" id="username" required placeholder="username" class="glass-input w-full px-4 py-3 rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="block text-xs font-semibold text-slate-600">Kode Rahasia</label>
+                            <span class="text-xs text-pink-500 cursor-pointer hover:underline" onclick="showHint()">Petunjuk?</span>
+                        </div>
+                        <input type="password" id="password" required placeholder="password" class="glass-input w-full px-4 py-3 rounded-xl text-sm">
+                    </div>
 
-    <div id="main-content">
-        
-        <section id="ucapan">
-            <h2 class="animated-text">Pesan dari Ryan</h2>
-            <div class="ucapan-box">
-                <p>Happy Birthday Kay! Di hari spesial lu ini, Gw cuma mau bilang thanks sudah menjadi orang hebat, menjadi temen, jadi kakak, jadi panutan buat gw dan juga yang kadang ngasih tawa walaupun lu juga lagi ga baik baik aja wkwk. Semoga langkah lu ke depan selalu dimudahkan, mimpi lu didekatkan, dan hari lu selalu dipenuhi kebahagiaan. Btw sorry ga bisa ngasih apa apa, cuma bisa ngasih doa dan ucapan yang simple ini hehe.</p>
-                <div class="salam-hangat">With Love, Ryan</div>
+                    <div id="hint-box" class="hidden bg-pink-50 border border-pink-200 rounded-xl p-3 text-xs text-pink-700">
+                        💡 <strong>Petunjuk:</strong> Nama: <code class="bg-pink-100 px-1 rounded font-bold">kay</code> | Password: <code class="bg-pink-100 px-1 rounded font-bold">seblak</code>
+                    </div>
+
+                    <div id="error-message" class="hidden bg-rose-50 border border-rose-200 rounded-xl p-3 text-xs text-rose-600">
+                        Nama atau kode rahasia salah! Pastikan nama 'kay' dan password 'seblak'.
+                    </div>
+
+                    <button type="submit" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded-xl shadow-lg transition duration-200 text-sm">
+                        Buka Surprise 🚀
+                    </button>
+                </form>
             </div>
-        </section>
+        </div>
+    </main>
 
-        <hr style="border: 0; border-top: 1px dashed #e5a93b; max-width: 40%; margin: 0 auto;">
-
-        <section id="countdown-section">
-            <h2 class="animated-text" style="font-size: 2.5rem;">Spesial di Hari Ini</h2>
-            <div class="countdown">
-                <div class="time-box">
-                    <span id="days">00</span>
-                    <label>Hari</label>
-                </div>
-                <div class="time-box">
-                    <span id="hours">00</span>
-                    <label>Jam</label>
-                </div>
-                <div class="time-box">
-                    <span id="minutes">00</span>
-                    <label>Menit</label>
-                </div>
-                <div class="time-box">
-                    <span id="seconds">00</span>
-                    <label>Detik</label>
-                </div>
+    <!-- MAIN BIRTHDAY PAGE -->
+    <div id="main-content" class="hidden relative z-10 min-h-screen pb-20">
+        
+        <header class="sticky top-0 z-40 backdrop-blur-md bg-white/40 border-b border-white/50 px-4 py-3 shadow-sm">
+            <div class="max-w-4xl mx-auto flex justify-between items-center">
+                <span class="font-bold text-slate-800 text-sm">Special Day For <span id="display-user-name" class="text-pink-600">kay</span> 🎉</span>
+                <button onclick="toggleMusic()" class="bg-white/80 hover:bg-white text-pink-600 border border-pink-200 px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-music"></i>
+                    <span id="music-text">Putar Musik</span>
+                </button>
             </div>
-        </section>
+        </header>
 
-        <hr style="border: 0; border-top: 1px dashed #e5a93b; max-width: 40%; margin: 0 auto;">
+       <audio id="bg-music" loop preload="auto">
+    <source id="bg-music-source" src="" type="audio/mpeg">
+</audio>
 
-        <section id="memories">
-            <h2 class="animated-text">Foto lu nih</h2>
-            <p style="margin-bottom: 20px; font-size: 0.9rem; color: #777;">Beberapa foto lu gw colong dari Tiktok wkwk</p>
-            <div class="gallery-grid">
-                <img class="animated-image" src="KAR 1.jpeg" alt="Momen 1">
-                <img class="animated-image" src="KAR 2.jpeg" alt="Momen 2">
-                <img class="animated-image" src="KAR 3.jpeg" alt="Momen 3">
-            </div>
-        </section>
-
-        <footer>
-            <p>Dibuat oleh Ryan</p>
-            <p style="margin-top: 8px; opacity: 0.5;">17 Oktober 2026 Special Birthday Karina.</p>
-        </footer>
-
-    </div>
-
-    <script>
-        const lagu = document.getElementById('mySong');
-        const tombolMusik = document.getElementById('musicBtn');
-
-        // Efek Semburan Konfeti Kiri & Kanan
-        function semburanKonfeti() {
-            var durasi = 3 * 1000;
-            var akhir = Date.now() + durasi;
-
-            (function frame() {
-                // Semburan dari Kiri
-                confetti({
-                    particleCount: 4,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0, y: 0.8 }
-                });
-                // Semburan dari Kanan
-                confetti({
-                    particleCount: 4,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1, y: 0.8 }
-                });
-
-                if (Date.now() < akhir) {
-                    requestAnimationFrame(frame);
-                }
-            }());
-        }
-
-        // Efek Buka Surat, Putar Musik & Tembakkan Konfeti
-        function bukaPesan() {
-            const cover = document.getElementById('cover');
+        <div class="max-w-3xl mx-auto px-4 pt-8 space-y-10">
             
-            lagu.play().catch(error => {
-                console.log("Autoplay dicegah browser.");
-            });
+            <!-- Hero & Foto Profil -->
+            <section class="text-center space-y-4">
+                <h1 class="text-3xl md:text-5xl font-extrabold font-serif-custom glow-text">
+                    Selamat Ulang Tahun, <br><span id="hero-user-name" class="font-handwriting text-5xl md:text-6xl">kay</span>! 🌸
+                </h1>
 
-            cover.style.transform = 'translateY(-100vh)';
-            setTimeout(() => {
-                cover.style.display = 'none';
-                const mainContent = document.getElementById('main-content');
-                mainContent.style.display = 'block';
-                
-                tombolMusik.style.display = 'flex';
-                
-                // Memicu efek ledakan konfeti langsung setelah halaman terbuka
-                semburanKonfeti();
-                
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 800);
-        }
+                <div class="flex justify-center my-4">
+                    <div class="relative w-32 h-32 md:w-40 md:h-40 rounded-full p-1 bg-gradient-to-tr from-pink-400 via-purple-400 to-rose-400 shadow-xl">
+                        <img id="profile-img" src="" alt="Foto Profil" class="w-full h-full object-cover rounded-full border-4 border-white">
+                    </div>
+                </div>
 
-        // Fungsi Jeda/Putar Musik
-        function toggleMusic() {
-            if (lagu.paused) {
-                lagu.play();
-                tombolMusik.innerText = "🔊";
-            } else {
-                lagu.pause();
-                tombolMusik.innerText = "🔇";
-            }
-        }
+                <!-- COUNTDOWN TIMER (17 Oktopber 2026) -->
+                <div class="glass-card rounded-2xl p-4 max-w-md mx-auto my-4 text-center">
+                    <p class="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">Hitung Mundur Waktu Spesial ⏳</p>
+                    <div id="countdown-timer" class="flex justify-center gap-4 text-slate-800">
+                        <div class="bg-white/80 px-3 py-1.5 rounded-xl border border-pink-100 shadow-sm min-w-[55px]">
+                            <span id="cd-days" class="block font-extrabold text-lg text-pink-600">00</span>
+                            <span class="text-[10px] text-slate-400 uppercase font-semibold">Hari</span>
+                        </div>
+                        <div class="bg-white/80 px-3 py-1.5 rounded-xl border border-pink-100 shadow-sm min-w-[55px]">
+                            <span id="cd-hours" class="block font-extrabold text-lg text-pink-600">00</span>
+                            <span class="text-[10px] text-slate-400 uppercase font-semibold">Jam</span>
+                        </div>
+                        <div class="bg-white/80 px-3 py-1.5 rounded-xl border border-pink-100 shadow-sm min-w-[55px]">
+                            <span id="cd-minutes" class="block font-extrabold text-lg text-pink-600">00</span>
+                            <span class="text-[10px] text-slate-400 uppercase font-semibold">Menit</span>
+                        </div>
+                        <div class="bg-white/80 px-3 py-1.5 rounded-xl border border-pink-100 shadow-sm min-w-[55px]">
+                            <span id="cd-seconds" class="block font-extrabold text-lg text-pink-600">00</span>
+                            <span class="text-[10px] text-slate-400 uppercase font-semibold">Detik</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        // Hitung Mundur Menuju Tanggal 17 Oktober 2026
-        const tanggalAcara = new Date("Oct 17, 2026 00:00:00").getTime();
+            <!-- Cake Section -->
+            <section class="glass-card rounded-3xl p-6 text-center max-w-md mx-auto">
+                <h2 class="text-lg font-bold text-slate-800 mb-1">Tiup Lilin Ulang Tahun 🎂</h2>
+                <p class="text-xs text-slate-500 mb-4">Tekan api lilin untuk meniupnya!</p>
 
-        const timer = setInterval(function() {
-            const sekarang = new Date().getTime();
-            const selisih = tanggalAcara - sekarang;
+                <div class="cake-container">
+                    <div class="cake-base"></div>
+                    <div class="cake-top"></div>
+                    <div class="candle" onclick="blowOutCandle()">
+                        <div class="flame" id="flame-element"></div>
+                        <div class="smoke" id="smoke-element"></div>
+                    </div>
+                </div>
 
-            const hari = Math.floor(selisih / (1000 * 60 * 60 * 24));
-            const jam = Math.floor((selisih % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const menit = Math.floor((selisih % (1000 * 60 * 60)) / (1000 * 60));
-            const detik = Math.floor((selisih % (1000 * 60)) / 1000);
+                <div id="wish-message" class="mt-4">
+                    <span class="text-xs text-pink-600 bg-pink-50 border border-pink-100 px-3 py-1.5 rounded-full inline-block">
+                        ✨ Sentuh api lilin!
+                    </span>
+                </div>
+            </section>
 
-            document.getElementById("days").innerText = hari < 10 ? "0" + hari : hari;
-            document.getElementById("hours").innerText = jam < 10 ? "0" + jam : jam;
-            document.getElementById("minutes").innerText = menit < 10 ? "0" + menit : menit;
-            document.getElementById("seconds").innerText = detik < 10 ? "0" + detik : detik;
+            <!-- Gallery Section dengan Sub-Judul Baru -->
+            <section class="space-y-2 text-center">
+                <h2 class="text-xl font-bold text-slate-800 font-serif-custom">Galeri Foto Lu Nih 📸</h2>
+                <p class="text-xs text-slate-500 font-medium">Beberapa foto lu yg gw colong hehe</p>
+                <div id="photo-gallery" class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4"></div>
+            </section>
 
-            if (selisih < 0) {
-                clearInterval(timer);
-                document.getElementById("days").innerText = "00";
-                document.getElementById("hours").innerText = "00";
-                document.getElementById("minutes").innerText = "00";
-                document.getElementById("seconds").innerText = "00";
-            }
-        }, 1000);
-    </script>
+            <!-- Secret Letter -->
+            <section class="glass-card rounded-3xl p-6 text-center bg-gradient-to-r from-pink-500/10 to-purple-500/10 border border-pink-200">
+                <h3 class="text-lg font-bold text-slate-800 font-serif-custom mb-2">Surat & Doa Rahasia ✉️</h3>
+                <p class="text-xs text-slate-600 mb-4">Ada sebuah pesan hangat khusus hanya untukmu.</p>
+                <button onclick="openModal()" class="bg-pink-500 hover:bg-pink-600 text-white text-xs font-medium px-6 py-2.5 rounded-full shadow-md transition">
+                    Buka Surat Rahasia
+                </button>
+            </section>
+
+            <!-- Send Message via WhatsApp -->
+            <section class="glass-card rounded-3xl p-6 max-w-lg mx-auto">
+                <h3 class="text-md font-bold text-slate-800 mb-1 flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-emerald-500 text-lg"></i>
+                    Kirim Balasan via WhatsApp
+                </h3>
+                <p class="text-xs text-slate-500 mb-4">Tuliskan pesan balasanmu di bawah untuk dikirim terus ke WhatsApp!</p>
+
+                <form onsubmit="sendToWhatsApp(event)" class="space-y-3">
+                    <textarea id="reply-text" rows="3" required placeholder="Tuliskan ucapan atau pesananmu di sini..." class="glass-input w-full p-3 rounded-xl text-xs focus:ring-2 focus:ring-pink-300"></textarea>
+                    <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-semibold py-3 px-4 rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                        <span>Kirim ke WhatsApp</span>
+                    </button>
+                </form>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- MODAL SECRET LETTER -->
+    <div id="letter-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm opacity-0 pointer-events-none modal-fade">
+        <div class="glass-card bg-white rounded-3xl max-w-md w-full p-6 relative shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-sm">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="text-center mb-4">
+                <h3 id="letter-title" class="text-xl font-bold font-serif-custom text-slate-800"></h3>
+            </div>
+            <p id="letter-body" class="text-slate-600 text-xs md:text-sm leading-relaxed whitespace-pre-line mb-4"></p>
+            <div id="letter-sender" class="text-right font-handwriting text-lg text-pink-600 font-bold"></div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
