@@ -16,7 +16,7 @@ const BIRTHDAY_DATA = {
     // Surat & Pesan Rahsia Modal
     secretLetter: {
         title: "Untuk Kay 💌",
-        body: `Happy Birthday Kay!\n\nDi hari spesial lu ini, Gw cuma mau bilang thanks sudah menjadi orang hebat, menjadi temen, jadi kakak, jadi panutan buat gw dan juga yang kadang ngasih tawa walaupun lu juga lagi ga baik baik aja wkwk. Semoga langkah lu ke depan selalu dimudahkan, mimpi lu didekatkan, dan hari-hari lu selalu dipenuhi kebahagiaan. Btw sorry ga bisa ngasih apa apa, cuma bisa ngasih doa dan ucapan yang simple ini hehe.`,
+        body: `Happy Birthday Kay!\n\nDi hari spesial lu ini, Gw cuma mau bilang thanks sudah menjadi orang hebat, menjadi temen, jadi kakak, jadi panutan buat gw dan juga yang kadang ngasih tawa ke banyak orang walaupun lu juga lagi ga baik baik aja wkwk. Semoga langkah lu ke depan selalu dimudahkan, mimpi lu didekatkan, hari-hari lu selalu dipenuhi kebahagiaan dan selalu dipenuhi hal hal yang baik. Btw sorry ga bisa ngasih apa apa, cuma bisa ngasih doa dan ucapan ini hehe.`,
         sender: "Dari Moderator Terbaikmu ❤️"
     },
 
