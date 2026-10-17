@@ -2,7 +2,7 @@ const BIRTHDAY_DATA = {
     // Maklumat Asas & Pintu Rahsia
     targetName: "kay",
     secretPassword: "seblak",
-    whatsappNumber: "6282384613484", // Ganti dengan nomor WhatsApp Anda
+    whatsappNumber: "6282286161274", // Ganti dengan nomor WhatsApp Anda
 
     // PENGATURAN MUSIK (Bisa diganti link MP3 lain atau nama file lokal "lagu.mp3")
     musicUrl: "ultah.mp3",
